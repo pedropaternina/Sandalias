@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 #[Table('categorias')]
 class Categoria extends Model
 {
-    use HasUuid;
+    use HasUuids;
     
     protected $fillable = [
         'nombre_categoria'

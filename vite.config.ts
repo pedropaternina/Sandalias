@@ -7,6 +7,13 @@ import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+    server: {
+        host: 'localhost',
+        cors: true,
+        hmr: {
+            host: 'localhost',
+        },
+    },
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.ts'],
@@ -31,4 +38,5 @@ export default defineConfig({
             formVariants: true,
         }),
     ],
+    
 });
