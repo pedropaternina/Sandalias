@@ -6,22 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+
 
 #[Table('clientes')]
-class Cliente extends Model
+class Cliente extends Authenticatable
 {
     use HasUuids;
 
     protected $fillable = [
-        'nombres', 'apellidos', 'correo', 'telefono', 'email_verificado'
+        'nombres', 'apellidos', 'correo', 'telefono', 'password', 'email_verificado'
     ];
 
     protected $hidden = [
-        'password_hash'
+        'password', 'email_verificado',
     ];
 
     protected $casts = [
-        'password_hash' => 'hashed',
+        'password' => 'hashed',
         'email_verificado' => 'boolean',
     ];
 
