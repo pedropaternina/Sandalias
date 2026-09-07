@@ -15,10 +15,11 @@ return new class extends Migration
             $table->foreign('cliente_id')
                   ->references('id')
                   ->on('clientes');
-            $table->foreign('direccion_id')
+            $table->foreign('pedido_direccion_id')
                   ->references('id')
-                  ->on('direcciones')
+                  ->on('pedido_direcciones')
                   ->onDelete('set null');
+
         });
     }
 

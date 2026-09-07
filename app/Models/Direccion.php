@@ -15,7 +15,7 @@ class Direccion extends Model
 
     protected $fillable = [
         'cliente_id', 'pais', 'departamento', 'ciudad', 'barrio', 
-        'direccion', 'conjunto_edificio', 'numero_casa_o_apartamento', 'indicaciones_adicionales',
+        'direccion', 'conjunto_o_edificio', 'numero_casa_o_departamento', 'indicaciones_adicionales',
         'codigo_postal', 'telefono_contacto', 'predeterminada'
     ];
 

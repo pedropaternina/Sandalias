@@ -17,6 +17,8 @@ class AuthController extends Controller
 
     public function showRegistro()
     {
+        if(Auth::check())
+
         return Inertia::render('Auth/RegistroShow');
     }
 
@@ -30,9 +32,11 @@ class AuthController extends Controller
         $cliente = $this->authService->autenticar($request->validated());
 
         Auth::guard('cliente')->login($cliente);
+        dd(Auth::guard('cliente')->check(), Auth::guard('cliente')->id());
 
         return redirect()
         ->route('home')
+
         ->with('mensaje', "Usuario logueado con exito");
     }
 

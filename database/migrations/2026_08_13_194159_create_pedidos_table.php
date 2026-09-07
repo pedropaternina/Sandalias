@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('cliente_id');
-            $table->uuid('direccion_id');
+            $table->uuid('pedido_direccion_id');
+            $table->string('nombre_contacto');
+            $table->string('correo_contacto');
+            $table->string('telefono_contacto');
             $table->string('estado');
             $table->decimal('subtotal',10,2);
             $table->decimal('descuento',10,2)->default(0);

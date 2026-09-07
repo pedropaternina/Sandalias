@@ -28,6 +28,26 @@ class ProductoController extends Controller
         ]);
     }
 
+    public function getProductos()
+    {
+        return Producto::with('categoria', 'productoVariante', 'productoImagen')->get();
+    }
+
+    public function getProductoId($productoId)
+    {
+        return Producto::where('id', $productoId)
+            ->with('categoria', 'productoVariante', 'productoImagen')
+            ->firstOrFail();
+    }
+
+    public function showDetalles($productoId)
+    {
+        return Inertia::render('Landing/DetallesProducto', [
+            'producto' => Producto::where('id', $productoId)
+            ->with('categoria', 'productoVariante', 'productoImagen')
+            ->firstOrFail()
+        ]);
+    }
 
     public function create(): Response
     {

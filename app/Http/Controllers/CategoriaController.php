@@ -22,6 +22,11 @@ class CategoriaController extends Controller
         ]);
     }
 
+    public function getCategorias()
+    {
+        return Categoria::all();
+    }
+
     public function create(): Response
     {
         return Inertia::render('Categorias/Create', [
