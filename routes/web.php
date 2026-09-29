@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\PedidoDireccionController;
 
 Route::inertia('/', 'Welcome')->name('home');
 
@@ -45,5 +46,13 @@ Route::post('login', [AuthController:: class, 'login'])->name('login');
 // Pedidos
 
 Route::get('pedido', [PedidoController::class, 'showPedido'])->name('show.pedido');
-Route::post('pedido', [PedidoController::class, 'store'])->name('store');
+Route::post('pedido', [PedidoController::class, 'store'])->name('pedido.store');
 Route::get('pedido/confirm/{pedidoId}', [PedidoController::class, 'pedidoConfirm'])->name('pedido.confirm');
+
+// Pedido Dirección
+
+Route::get('api/pedidoDireccion', [PedidoDireccionController::class, 'getPedidosDireccion']);
+Route::get('api/pedidoDireccion/{pDireccion}', [PedidoDireccionController::class, 'getPedidoDireccionId']);
+Route::put('api/pedidoDireccion', [PedidoDireccionController::class, 'store'])->name('pedidoDireccion.store');
+Route::post('api/pedidoDireccion/{pDireccion}', [PedidoDireccionController::class, 'update'])->name('pedidoDireccion.update');
+Route::delete('api/pedidoDireccion/{pDireccion}', [PedidoDireccionController::class, 'destroy'])->name('pedidoDireccion.destroy');

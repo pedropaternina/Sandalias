@@ -5,14 +5,19 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePedidosRequest extends FormRequest
+class StorePedidoDireccionRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
+     * Get the validation rules that apply to the request.
+     *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
@@ -27,14 +32,6 @@ class StorePedidosRequest extends FormRequest
             "numero_casa_o_apartamento" => ["nullable", "string", "max:30"],
             "indicaciones_adicionales" => ["nullable", "string", "max:255"],
             "codigo_postal" => ["required", "string", "max:30"],
-
-            "nombre_contacto" => ["required", "string", "max:50"],
-            "correo_contacto" => ["required", "email", "max:100"],
-            "telefono_contacto" => ["required", "string", "max:30"],
-            "estado" => ["required", "string", "max:20"],
-            "subtotal" => ["required", "numeric", "min:0"],
-            "descuento" => ["required", "numeric", "min:0"],
-            "total" => ["required", "numeric", "min:0"],
         ];
     }
 }

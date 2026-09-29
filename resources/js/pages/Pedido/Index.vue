@@ -8,22 +8,22 @@ const paso = ref(1); // 1 = Contacto, 2 = Dirección
 
 const form = useForm({
   nombre_contacto: '',
-  apellido_contacto: '',
   correo_contacto: '',
-  telefono_contaco: '',
+  telefono_contacto: '',
   pais: '',
   departamento: '',
   ciudad: '',
   barrio: '',
   direccion: '',
-  conjunto_o_edificio: '',
-  numero_casa_o_departamento: '',
+  conjunto_edificio: '',
+  numero_casa_o_apartamento: '',
   indicaciones_adicionales: '',
   codigo_postal: '',
+  estado: 'pendiente',
 })
 
 function siguientePaso() {
-  if (!form.nombre_contacto || !form.apellido_contacto || !form.correo_contacto || !form.telefono_contaco) {
+  if (!form.nombre_contacto || !form.correo_contacto || !form.telefono_contacto) {
     return;
   }
   paso.value = 2;
@@ -31,10 +31,6 @@ function siguientePaso() {
 
 function pasoAnterior() {
   paso.value = 1;
-}
-
-function enviar() {
-  form.post('pedido')
 }
 
 // --- Carrito (reactivo, viene del módulo de carrito compartido) ---
@@ -49,6 +45,17 @@ const subtotal = computed(() =>
 const descuento = ref(0);
 
 const total = computed(() => subtotal.value - descuento.value);
+
+function enviar() {
+  form
+    .transform((data) => ({
+      ...data,
+      subtotal: subtotal.value,
+      descuento: descuento.value,
+      total: total.value,
+    }))
+    .post('/pedido')
+}
 
 function formatearPrecio(valor) {
   return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(valor);
@@ -79,21 +86,15 @@ function formatearPrecio(valor) {
           </div>
 
           <div>
-            <input type="text" v-model="form.apellido_contacto" placeholder="Apellidos" required
-              class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
-            <span v-if="form.errors.apellido_contacto" class="text-red-500 text-xs">{{ form.errors.apellido_contacto }}</span>
-          </div>
-
-          <div>
             <input type="email" v-model="form.correo_contacto" placeholder="Correo" required
               class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
             <span v-if="form.errors.correo_contacto" class="text-red-500 text-xs">{{ form.errors.correo_contacto }}</span>
           </div>
 
           <div>
-            <input type="text" v-model="form.telefono_contaco" placeholder="Telefono" required
+            <input type="text" v-model="form.telefono_contacto" placeholder="Telefono" required
               class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
-            <span v-if="form.errors.telefono_contaco" class="text-red-500 text-xs">{{ form.errors.telefono_contaco }}</span>
+            <span v-if="form.errors.telefono_contacto" class="text-red-500 text-xs">{{ form.errors.telefono_contacto }}</span>
           </div>
 
           <button type="submit"
@@ -135,15 +136,15 @@ function formatearPrecio(valor) {
           </div>
 
           <div>
-            <input type="text" v-model="form.conjunto_o_edificio" placeholder="Conjunto o Edificio"
+            <input type="text" v-model="form.conjunto_edificio" placeholder="Conjunto o Edificio"
               class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
-            <span v-if="form.errors.conjunto_o_edificio" class="text-red-500 text-xs">{{ form.errors.conjunto_o_edificio }}</span>
+            <span v-if="form.errors.conjunto_edificio" class="text-red-500 text-xs">{{ form.errors.conjunto_edificio }}</span>
           </div>
 
           <div>
-            <input type="text" v-model="form.numero_casa_o_departamento" placeholder="Numero de casa o departamento"
+            <input type="text" v-model="form.numero_casa_o_apartamento" placeholder="Numero de casa o apartamento"
               class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
-            <span v-if="form.errors.numero_casa_o_departamento" class="text-red-500 text-xs">{{ form.errors.numero_casa_o_departamento }}</span>
+            <span v-if="form.errors.numero_casa_o_apartamento" class="text-red-500 text-xs">{{ form.errors.numero_casa_o_apartamento }}</span>
           </div>
 
           <div>
@@ -153,7 +154,7 @@ function formatearPrecio(valor) {
           </div>
 
           <div>
-            <input type="text" v-model="form.codigo_postal" placeholder="Codigo Postal"
+            <input type="text" v-model="form.codigo_postal" placeholder="Codigo Postal" required
               class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900">
             <span v-if="form.errors.codigo_postal" class="text-red-500 text-xs">{{ form.errors.codigo_postal }}</span>
           </div>

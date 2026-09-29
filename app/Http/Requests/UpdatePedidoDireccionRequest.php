@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DireccionRequest extends FormRequest
+class UpdatePedidoDireccionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,18 +23,15 @@ class DireccionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "cliente_id" => ["uuid", "required", "exists:clientes,id"],
-            "pais" => ["required", "string", "max:30"],
-            "departamento" => ["required", "string", "max:30"],
-            "ciudad" => ["required", "string", "max:30"],
-            "barrio" => ["required", "string", "max:30"],
-            "direccion" => ["required", "string", "max:50"],
+            "pais" => ["nullable", "string", "max:30"],
+            "departamento" => ["nullable", "string", "max:30"],
+            "ciudad" => ["nullable", "string", "max:30"],
+            "barrio" => ["nullable", "string", "max:30"],
+            "direccion" => ["nullable", "string", "max:50"],
             "conjunto_edificio" => ["nullable", "string", "max:30"],
             "numero_casa_o_apartamento" => ["nullable", "string", "max:30"],
             "indicaciones_adicionales" => ["nullable", "string", "max:255"],
-            "codigo_postal" => ["required", "string", "max:30"],
-            "telefono_contacto" => ["required", "string", "max:20"],
-            "predeterminada" => ["boolean"],
+            "codigo_postal" => ["nullable", "string", "max:30"],
         ];
     }
 }

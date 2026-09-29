@@ -14,8 +14,16 @@ class Pedido extends Model
     use HasUuids;
 
     protected $fillable = [
-        'cliente_id', 'direccion_id', 'estado', 'subtotal', 'descuento', 'total' 
-    ];
+    'cliente_id',
+    'pedido_direccion_id',
+    'nombre_contacto',
+    'correo_contacto',
+    'telefono_contacto',
+    'estado',
+    'subtotal',
+    'descuento',
+    'total',
+];
 
     protected $casts = [
         'subtotal' => 'decimal:2',

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('cliente_id');
+            $table->uuid('cliente_id')->nullable();
             $table->uuid('pedido_direccion_id');
             $table->string('nombre_contacto');
             $table->string('correo_contacto');

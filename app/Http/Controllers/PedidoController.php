@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Services\PedidoService;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Cliente;
 use App\Models\Direccion;
+use App\Http\Requests\StorePedidosRequest;
 
 class PedidoController extends Controller
 {
@@ -23,19 +24,17 @@ class PedidoController extends Controller
         ]);
     }
 
-
-    public function pedidoConfirm()
+    public function pedidoConfirm(string $pedidoId)
     {
-
+        return Inertia::render('Landing/Index');
     }
 
-    public function store(StorePedidoRequest $request): RedirectResponse
+    public function store(StorePedidosRequest $request): RedirectResponse
     {
         $pedido = $this->pedidoService->store($request->validated());
-        
-        return redirect()
-        ->route('pedido.confirm')
-        ->with('mensaje', 'Pedido creado con exito');
 
+        return redirect()
+            ->route('pedido.confirm', ['pedidoId' => $pedido->id])
+            ->with('mensaje', 'Pedido creado con exito');
     }
 }
