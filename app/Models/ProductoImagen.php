@@ -15,7 +15,7 @@ class ProductoImagen extends Model
     use HasUuids;
 
     protected $fillable = [
-        'producto_id', 'url', 'orden'
+        'producto_id', 'url', 'orden', 'producto_color_id'
     ];
 
     public function producto() : BelongsTo

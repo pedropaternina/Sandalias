@@ -31,7 +31,7 @@ class Pedido extends Model
         'total' => 'decimal:2',
     ];
 
-    public function pedidoItems(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(PedidoItem::class);
     }
@@ -46,11 +46,10 @@ class Pedido extends Model
         return $this->belongsTo(Cliente::class);
     }
 
-    public function direccion(): BelongsTo
-    {
-        return $this->belongsTo(Direccion::class);
-    }
-
+public function direccion(): BelongsTo
+{
+    return $this->belongsTo(PedidoDireccion::class, 'pedido_direccion_id');
+}
 
     public function scopePendiente($query){return $query->where('estado', 'pendiente');}
 

@@ -15,7 +15,7 @@ class ProductoVariante extends Model
     use HasUuids;
 
     protected $fillable = [
-        'producto_id', 'talla', 'stock', 'sku'
+        'producto_id', 'talla', 'stock', 'sku', 'producto_color_id'
     ];
 
     public function producto(): BelongsTo
@@ -23,8 +23,14 @@ class ProductoVariante extends Model
         return $this->belongsTo(Producto::class);
     }
 
+    public function color(): BelongsTo
+{
+    return $this->belongsTo(ProductoColor::class, 'producto_color_id');
+}
+
+
     public function pedidoItems(): HasMany
     {
-        return $this->hasMany(PedidoItem::class);
+        return $this->hasMany(PedidoItem::class, 'variante_id');
     }
 }

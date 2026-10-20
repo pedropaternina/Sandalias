@@ -32,9 +32,11 @@ class StorePedidosRequest extends FormRequest
             "correo_contacto" => ["required", "email", "max:100"],
             "telefono_contacto" => ["required", "string", "max:30"],
             "estado" => ["required", "string", "max:20"],
-            "subtotal" => ["required", "numeric", "min:0"],
             "descuento" => ["required", "numeric", "min:0"],
-            "total" => ["required", "numeric", "min:0"],
+    
+            "items"                   => ["required", "array", "min:1"],
+            "items.*.variante_id"     => ["required", "uuid", "exists:producto_variantes,id"],
+            "items.*.cantidad"        => ["required", "integer", "min:1"],
         ];
     }
 }

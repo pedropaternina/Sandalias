@@ -47,14 +47,17 @@ const descuento = ref(0);
 const total = computed(() => subtotal.value - descuento.value);
 
 function enviar() {
+  if (carrito.value.length === 0) return;
   form
     .transform((data) => ({
       ...data,
-      subtotal: subtotal.value,
       descuento: descuento.value,
-      total: total.value,
+      items: carrito.value.map((p) => ({
+        variante_id: p.varianteId,
+        cantidad: p.cantidad,
+      })),
     }))
-    .post('/pedido')
+    .post('/pedido');
 }
 
 function formatearPrecio(valor) {

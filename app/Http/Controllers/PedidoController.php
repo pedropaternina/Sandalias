@@ -29,9 +29,12 @@ class PedidoController extends Controller
         return Inertia::render('Landing/Index');
     }
 
-    public function store(StorePedidosRequest $request): RedirectResponse
+   public function store(StorePedidosRequest $request): RedirectResponse
     {
-        $pedido = $this->pedidoService->store($request->validated());
+        $datos = $request->validated();
+        $datos['cliente_id'] = Auth::guard('cliente')->id();
+
+        $pedido = $this->pedidoService->store($datos);
 
         return redirect()
             ->route('pedido.confirm', ['pedidoId' => $pedido->id])

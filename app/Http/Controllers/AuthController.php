@@ -17,7 +17,9 @@ class AuthController extends Controller
 
     public function showRegistro()
     {
-        if(Auth::check())
+        if (Auth::guard('cliente')->check()) {
+            return redirect()->route('home');
+        }
 
         return Inertia::render('Auth/RegistroShow');
     }
@@ -32,7 +34,6 @@ class AuthController extends Controller
         $cliente = $this->authService->autenticar($request->validated());
 
         Auth::guard('cliente')->login($cliente);
-        dd(Auth::guard('cliente')->check(), Auth::guard('cliente')->id());
 
         return redirect()
         ->route('home')
@@ -49,5 +50,15 @@ class AuthController extends Controller
         return redirect()
         ->route('home')
         ->with('mensaje', 'Usuario registrado con exito');
+    }
+
+   public function logout(Request $request): RedirectResponse
+    {
+        Auth::guard('cliente')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
     }
 }

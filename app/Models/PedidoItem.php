@@ -26,8 +26,8 @@ class PedidoItem extends Model
         return $this->belongsTo(Pedido::class);
     }
 
-    public function productoVariante(): BelongsTo
-    {
-        return $this->belongsTo(ProductoVariante::class);
-    }
+   public function variante(): BelongsTo
+{
+    return $this->belongsTo(ProductoVariante::class, 'variante_id');
+}
 }

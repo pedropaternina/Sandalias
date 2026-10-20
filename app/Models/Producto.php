@@ -41,9 +41,14 @@ class Producto extends Model
       return $this->hasMany(ProductoVariante::class);
    }
 
-   public function scopedActions()
+   public function scopedActivo()
    {
       return $query->where('activo', true);
+   }
+
+  public function colores(): HasMany
+   {
+      return $this->hasMany(ProductoColor::class)->orderBy('orden');
    }
 
 }
