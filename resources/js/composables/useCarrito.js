@@ -11,6 +11,15 @@ function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carrito.value));
 }
 
+function obtenerGenero(producto) {
+  const categoria = (producto.categoria?.nombre_categoria ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+
+  return categoria.includes('dama') || categoria.includes('mujer') ? 'dama' : 'caballero';
+}
+
 export function agregarAlCarrito(tallaSeleccionada, producto) {
   if (!producto || !tallaSeleccionada) return;
 
@@ -28,6 +37,7 @@ export function agregarAlCarrito(tallaSeleccionada, producto) {
       precio: producto.precio,
       talla: tallaSeleccionada.talla,
       imagen: producto.producto_imagen[0]?.url,
+      genero: obtenerGenero(producto),
       cantidad: 1,
     });
   }

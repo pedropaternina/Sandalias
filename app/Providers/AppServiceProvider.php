@@ -28,7 +28,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        if (app()->isProduction()) {
+        // Render termina el HTTPS en su proxy y le pasa la petición a Laravel por HTTP
+        if (app()->isProduction() || request()->header('X-Forwarded-Proto') === 'https') {
             URL::forceHttps();
         }
 
